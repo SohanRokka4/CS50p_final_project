@@ -27,8 +27,21 @@ def add_new_password():
     print("password added successfully")
             
         
-def retrive_password(site,username):
-    ....
+def retrive_password(site, username):
+    fernet = get_fernet()
+    if os.path.exista("passwords.json"):
+        with open("passwords.json","r") as file:
+            passwords = json.load(file)
+
+        if site in passwords:
+            encrypted_pass = passwords[site]["password"]
+            decrypted_pass = fernet.decrypt(encrypted_pass.encode()).decode()
+            printf(f"username: {passwords[site][username]}")
+            printf(f"password: {decrypted_pass}")
+        else:
+            print("no password found for the site")
+    else:
+        print("no passworda stord yet")
     
 def generate_random_password():
     ....
@@ -54,6 +67,8 @@ def main:
             if option == 1:
                 add_new_password()
             elif option == 2:
+                site = input("enter name of the site: ")
+                username = input("enter the username: ")
                 retrive_password(site, username)
             elif option == 3:
                 generate_random_password()
