@@ -5,9 +5,28 @@ from getpass import getpass
 from cryptography.fernet import fernet
 
 def add_new_password():
-    ....
+    site = input("Enter the site name: ")
+    username = input("Enter the username: ")
+    password = getpass("Enter the password: ")
+    fernet = get_fernet()
+    encrypted_pass = fernet.encrypt(password.encode())
+    
+    if os.path.exists("passwords.json"):
+        with open("passwords.json","r") as file:
+            passwords = json.load(file)
+    else :
+        passwords = {}
     
     
+    passwords(site) = {"username":username, "password": encrypted_pass.decode()}
+    
+    
+    with open("passwords.json","w") as file:
+        json.dump(passwords, file)
+    
+    print("password added successfully")
+            
+        
 def retrive_password(site,username):
     ....
     
