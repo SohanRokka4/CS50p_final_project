@@ -3,13 +3,16 @@ import json
 import base64
 from getpass import getpass
 from cryptography.fernet import fernet
+import string
+import random
+
 
 def add_new_password():
     site = input("Enter the site name: ")
     username = input("Enter the username: ")
     opt=input("enter 1 to enter own password and 2 to generate a random password for you")
     if opt == "1":
-        while true:
+        while True:
             password = input("enter your password")
             if len(password) >= 10:
                 break
@@ -50,10 +53,11 @@ def retrive_password(site, username):
         else:
             print("no password found for the site")
     else:
-        print("no passworda stored yet")
+        print("no password stored yet")
     
 def generate_random_password():
-    ....
+    characters = string.ascii_letters + string.digits + string.punctuation
+    return "".join(random.choice(characters)) for _ in range(12)
 
 
 def delete_password(site, username):
