@@ -2,7 +2,7 @@ import os
 import json
 import base64
 from getpass import getpass
-from cryptography.fernet import fernet
+from cryptography.fernet import Fernet
 import string
 import random
 
@@ -57,7 +57,7 @@ def retrive_password(site, username):
     
 def generate_random_password():
     characters = string.ascii_letters + string.digits + string.punctuation
-    return "".join(random.choice(characters)) for _ in range(12)
+    return "".join(random.choice(characters) for _ in range(12))
 
 
 def delete_password(site, username):
@@ -68,10 +68,26 @@ def change_password(site, username, new_password):
     .....
 
 
-def main:
+def generate_key():
+    key = Fernet.generate_key()
+    with open("secret.key", "wb") as key_file:
+        key_file.write(key)
+
+
+def load_key():
+    return open("secret.key", "rb").read()
+
+
+def get_fernet():
+    key = load_key()
+    return Fernet(key)
+
+
+
+def main():
     master_pass = getpass("Welcome to the password manager /n enter your master password: ")
     
-    if master_pass != __master__password:
+    if master_pass != "1 Am TH3 dArth D0g1us @,1":
         print(f"invalid master password")
         return
     else:
