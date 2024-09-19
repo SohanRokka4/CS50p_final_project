@@ -7,7 +7,16 @@ from cryptography.fernet import fernet
 def add_new_password():
     site = input("Enter the site name: ")
     username = input("Enter the username: ")
-    password = getpass("Enter the password: ")
+    opt=input("enter 1 to enter own password and 2 to generate a random password for you")
+    if opt == "1":
+        while true:
+            password = input("enter your password")
+            if len(password) >= 10:
+                break
+            else: 
+                continue
+    elif opt == "2":
+        password = generate_random_password()
     fernet = get_fernet()
     encrypted_pass = fernet.encrypt(password.encode())
     
@@ -41,7 +50,7 @@ def retrive_password(site, username):
         else:
             print("no password found for the site")
     else:
-        print("no passworda stord yet")
+        print("no passworda stored yet")
     
 def generate_random_password():
     ....
