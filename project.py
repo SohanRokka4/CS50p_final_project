@@ -24,7 +24,7 @@ def change_password(site, username, new_password):
 
 
 def main:
-    master_pass = input("Welcome to the password manager /n enter your master password: ")
+    master_pass = getpass("Welcome to the password manager /n enter your master password: ")
     
     if master_pass != __master__password:
         print(f"invalid master password")
@@ -35,13 +35,18 @@ def main:
             if option == 1:
                 add_new_password()
             elif option == 2:
-                retrive_password(site,username)
+                retrive_password(site, username)
             elif option == 3:
                 generate_random_password()
             elif option == 4:
-                delete_password()
+                site = input("enter site name")
+                username = input("enter username")
+                delete_password(site, username)
             elif option == 5:
-                change_password()
+                site = input("enter site name")
+                username = input("enter username")
+                new_password = getpass("enter new password: ")
+                change_password(site, username, new_password)
             elif option == 6:
                 break
             else:
