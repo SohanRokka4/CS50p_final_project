@@ -29,21 +29,17 @@ def add_new_password():
     elif opt == "2":
         password = generate_random_password()
     fernet = get_fernet()
-    encrypted_pass = fernet.encrypt(password.encode())
+    encrypted_pass = fernet.encrypt(password)
     
     if os.path.exists("passwords.json"):
         with open("passwords.json","r") as file:
             passwords = json.load(file)
     else :
         passwords = {}
-    
-    
-    passwords[site] = {"username":username, "password": encrypted_pass.decode()}
-    
-    
+        
+    passwords[site] = {"username":username, "password": encrypted_pass}
     with open("passwords.json","w") as file:
         json.dump(passwords, file)
-    
     print("password added successfully")
             
         
@@ -55,7 +51,7 @@ def retrive_password(site, username):
 
         if site in passwords:
             encrypted_pass = passwords[site]["password"]
-            decrypted_pass = fernet.decrypt(encrypted_pass.encode()).decode()
+            decrypted_pass = fernet.decrypt(encrypted_pass)
             printf(f"username: {passwords[site][username]}")
             printf(f"password: {decrypted_pass}")
         else:
@@ -81,7 +77,7 @@ def main():
     if master_pass != "XZ1234xz":
         print(f"invalid master password")
         return
-    else:
+    while True:
         try:
             option = int(input("\noptions\n1)add new password\n2)retrive password\n3)generate random password\n4)delete password\n5)change password\n6)quit\nchoose an option(1-6)"))
             if option == 1:
@@ -101,8 +97,8 @@ def main():
               #  username = input("enter username")
                # new_password = getpass("enter new password: ")
                 #change_password(site, username, new_password)
-            #elif option == 6:
-             #   break
+            elif option == 6:
+               break
             else:
                 print("invalid option")
         except ValueError:
