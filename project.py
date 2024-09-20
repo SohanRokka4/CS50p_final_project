@@ -7,6 +7,21 @@ import string
 import random
 
 
+def generate_key():
+    key = Fernet.generate_key()
+    with open("secret.key", "wb") as key_file:
+        key_file.write(key)
+
+
+def load_key():
+    return open("secret.key", "rb").read()
+
+
+def get_fernet():
+    key = load_key()
+    return Fernet(key)
+
+
 def add_new_password():
     site = input("Enter the site name: ")
     username = input("Enter the username: ")
@@ -30,7 +45,7 @@ def add_new_password():
         passwords = {}
     
     
-    passwords(site) = {"username":username, "password": encrypted_pass.decode()}
+    passwords[site] = {"username":username, "password": encrypted_pass.decode()}
     
     
     with open("passwords.json","w") as file:
@@ -60,32 +75,15 @@ def generate_random_password():
     return "".join(random.choice(characters) for _ in range(12))
 
 
-def delete_password(site, username):
-    ....
+#def delete_password(site, username):
+    
 
-
-def change_password(site, username, new_password):
-    .....
-
-
-def generate_key():
-    key = Fernet.generate_key()
-    with open("secret.key", "wb") as key_file:
-        key_file.write(key)
-
-
-def load_key():
-    return open("secret.key", "rb").read()
-
-
-def get_fernet():
-    key = load_key()
-    return Fernet(key)
-
-
+#def change_password(site, username, new_password):
+    
 
 def main():
-    master_pass = getpass("Welcome to the password manager /n enter your master password: ")
+    print("Welcome to the password manager \n")
+    master_pass = input("enter your master password: ")
     
     if master_pass != "1 Am TH3 dArth D0g1us @,1":
         print(f"invalid master password")
@@ -101,22 +99,22 @@ def main():
                 retrive_password(site, username)
             elif option == 3:
                 generate_random_password()
-            elif option == 4:
-                site = input("enter site name")
-                username = input("enter username")
-                delete_password(site, username)
-            elif option == 5:
-                site = input("enter site name")
-                username = input("enter username")
-                new_password = getpass("enter new password: ")
-                change_password(site, username, new_password)
-            elif option == 6:
-                break
+            #elif option == 4:
+               # site = input("enter site name")
+                #username = input("enter username")
+               # delete_password(site, username)
+            #elif option == 5:
+             #   site = input("enter site name")
+              #  username = input("enter username")
+               # new_password = getpass("enter new password: ")
+                #change_password(site, username, new_password)
+            #elif option == 6:
+             #   break
             else:
                 print("invalid option")
         except ValueError:
             print("enter a fucking number next time u dimwit")
             return
 
-if "__name__" == __main__ :
+if __name__ == "__main__" :
     main()
