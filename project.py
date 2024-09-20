@@ -7,18 +7,11 @@ import string
 import random
 
 
-def generate_key():
+def get_fernet():
     key = Fernet.generate_key()
     with open("secret.key", "wb") as key_file:
         key_file.write(key)
-
-
-def load_key():
-    return open("secret.key", "rb").read()
-
-
-def get_fernet():
-    key = load_key()
+    key = open("secret.key", "rb").read()
     return Fernet(key)
 
 
@@ -56,7 +49,7 @@ def add_new_password():
         
 def retrive_password(site, username):
     fernet = get_fernet()
-    if os.path.exista("passwords.json"):
+    if os.path.exists("passwords.json"):
         with open("passwords.json","r") as file:
             passwords = json.load(file)
 
@@ -85,7 +78,7 @@ def main():
     print("Welcome to the password manager \n")
     master_pass = input("enter your master password: ")
     
-    if master_pass != "1 Am TH3 dArth D0g1us @,1":
+    if master_pass != "XZ1234xz":
         print(f"invalid master password")
         return
     else:
