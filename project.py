@@ -25,7 +25,7 @@ def get_fernet():
 def add_new_password():
     site = input("Enter the site name: ")
     username = input("Enter the username: ")
-    opt=input("enter 1 to enter own password and 2 to generate a random password for you")
+    opt=input("enter 1 to enter own password and 2 to generate a random password for you: ")
     if opt == "1":
         while True:
             password = input("enter your password")
@@ -36,6 +36,7 @@ def add_new_password():
                 continue
     elif opt == "2":
         password = generate_random_password()
+        print(f"your randomly generated password is: {password}")
     fernet = get_fernet()
     encrypted_pass = fernet.encrypt(password.encode())
     
