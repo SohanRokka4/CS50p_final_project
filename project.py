@@ -8,10 +8,17 @@ import random
 
 
 def get_fernet():
-    key = Fernet.generate_key()
-    with open("secret.key", "wb") as key_file:
-        key_file.write(key)
-    key = open("secret.key","rb").read()
+    if not os.path.exists("secret.key"):
+        # If not, generate a new key and save it
+        key = Fernet.generate_key()
+        with open("secret.key", "wb") as key_file:
+            key_file.write(key)
+    else:
+        # If the key exists, load it
+        with open("secret.key", "rb") as key_file:
+            key = key_file.read()
+    
+    # Return the Fernet instance initialized with the key
     return Fernet(key)
 
 
@@ -24,12 +31,13 @@ def add_new_password():
             password = input("enter your password")
             if len(password) >= 10:
                 break
-            else: 
+            else:
+                print("password must be 10 characters long")
                 continue
     elif opt == "2":
         password = generate_random_password()
     fernet = get_fernet()
-    encrypted_pass = fernet.encrypt(password.encode)
+    encrypted_pass = fernet.encrypt(password.encode())
     
     if os.path.exists("passwords.json"):
         with open("passwords.json","r") as file:
@@ -37,7 +45,7 @@ def add_new_password():
     else :
         passwords = {}
         
-    passwords[site] = {"username":username, "password": encrypted_pass.decode}
+    passwords[site] = {"username":username, "password": encrypted_pass.decode()}
     with open("passwords.json","w") as file:
         json.dump(passwords, file)
     print("password added successfully")
@@ -53,8 +61,9 @@ def retrive_password(site, username):
             a = passwords[site]
             encrypted_pass = a["password"]
             decrypted_pass = fernet.decrypt(encrypted_pass.encode()).decode()
-            printf(f"username: {passwords[site][username]}")
-            printf(f"password: {decrypted_pass}")
+            b = passwords[site]
+            print(f"username: {b['username']}")
+            print(f"password: {decrypted_pass}")
         else:
             print("no password found for the site")
     else:
