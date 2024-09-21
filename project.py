@@ -11,7 +11,7 @@ def get_fernet():
     key = Fernet.generate_key()
     with open("secret.key", "wb") as key_file:
         key_file.write(key)
-    key = open("secret.key", "rb").read()
+    key = open("secret.key","rb").read()
     return Fernet(key)
 
 
@@ -29,7 +29,7 @@ def add_new_password():
     elif opt == "2":
         password = generate_random_password()
     fernet = get_fernet()
-    encrypted_pass = fernet.encrypt(password)
+    encrypted_pass = fernet.encrypt(password.encode)
     
     if os.path.exists("passwords.json"):
         with open("passwords.json","r") as file:
@@ -37,7 +37,7 @@ def add_new_password():
     else :
         passwords = {}
         
-    passwords[site] = {"username":username, "password": encrypted_pass}
+    passwords[site] = {"username":username, "password": encrypted_pass.decode}
     with open("passwords.json","w") as file:
         json.dump(passwords, file)
     print("password added successfully")
@@ -50,8 +50,9 @@ def retrive_password(site, username):
             passwords = json.load(file)
 
         if site in passwords:
-            encrypted_pass = passwords[site]["password"]
-            decrypted_pass = fernet.decrypt(encrypted_pass)
+            a = passwords[site]
+            encrypted_pass = a["password"]
+            decrypted_pass = fernet.decrypt(encrypted_pass.encode()).decode()
             printf(f"username: {passwords[site][username]}")
             printf(f"password: {decrypted_pass}")
         else:
