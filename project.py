@@ -75,14 +75,15 @@ def generate_random_password():
     return "".join(random.choice(characters) for _ in range(12))
 
 
-#def delete_password(site, username):
+def delete_password(site, username):
+    ....
     
 
 #def change_password(site, username, new_password):
     
 
 def main():
-    print("Welcome to the password manager \n")
+    print("Welcome to the password manager")
     master_pass = input("enter your master password: ")
     
     if master_pass != "XZ1234xz":
@@ -90,19 +91,18 @@ def main():
         return
     while True:
         try:
-            option = int(input("\noptions\n1)add new password\n2)retrive password\n3)generate random password\n4)delete password\n5)change password\n6)quit\nchoose an option(1-6)"))
+            option = int(input("\noptions\n1)add new password\n2)retrive password\n3)generate random password\n4)delete password\n5)change password\n6)quit\nchoose an option(1-6): "))
             if option == 1:
                 add_new_password()
             elif option == 2:
                 site = input("enter name of the site: ")
-                username = input("enter the username: ")
                 retrive_password(site, username)
             elif option == 3:
                 generate_random_password()
-            #elif option == 4:
-               # site = input("enter site name")
-                #username = input("enter username")
-               # delete_password(site, username)
+            elif option == 4:
+                site = input("enter site name")
+                username = input("enter username")
+                delete_password(site, username)
             #elif option == 5:
              #   site = input("enter site name")
               #  username = input("enter username")
