@@ -100,11 +100,9 @@ def change_password(site,username):
     fernet = get_fernet()
     encrypted_pass = fernet.encrypt(new_password.encode())
     
-    if os.path.exists("passwords.json"):
-        with open("passwords.json","r") as file:
-            passwords = json.load(file)
-    else :
-        passwords = {}
+    
+    with open("passwords.json","r") as file:
+        passwords = json.load(file)
         
     passwords[site] = {"username":username, "password": encrypted_pass.decode()}
     with open("passwords.json","w") as file:
