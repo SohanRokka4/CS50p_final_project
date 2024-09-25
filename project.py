@@ -76,7 +76,18 @@ def generate_random_password():
 
 
 def delete_password(site, username):
-    ....
+    fernet = get_fernet()
+    if os.path.exists("passwords.json"):
+        with open("passwords.json","r") as file:
+            passwords = load.json(file)
+        if site in passwords:
+            del passwords[site]
+        else:
+            print("no such site found")
+        with open("passwords.json","w") as file:
+            json.dump(passwords, file)
+    else:
+        print("no passwords stored")
     
 
 #def change_password(site, username, new_password):
