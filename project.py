@@ -76,10 +76,9 @@ def generate_random_password():
 
 
 def delete_password(site, username):
-    fernet = get_fernet()
     if os.path.exists("passwords.json"):
         with open("passwords.json","r") as file:
-            passwords = load.json(file)
+            passwords = json.load(file)
         if site in passwords:
             del passwords[site]
         else:
@@ -90,7 +89,27 @@ def delete_password(site, username):
         print("no passwords stored")
     
 
-#def change_password(site, username, new_password):
+def change_password(site,username):
+    while True:
+        new_password = getpass("enter your new password")
+        if len(new_password) >= 10:
+            break
+        else:
+            print("password must be 10 characters long")
+            continue
+    fernet = get_fernet()
+    encrypted_pass = fernet.encrypt(new_password.encode())
+    
+    if os.path.exists("passwords.json"):
+        with open("passwords.json","r") as file:
+            passwords = json.load(file)
+    else :
+        passwords = {}
+        
+    passwords[site] = {"username":username, "password": encrypted_pass.decode()}
+    with open("passwords.json","w") as file:
+        json.dump(passwords, file)
+    print("password added successfully")
     
 
 def main():
@@ -114,11 +133,10 @@ def main():
                 site = input("enter site name")
                 username = input("enter username")
                 delete_password(site, username)
-            #elif option == 5:
-             #   site = input("enter site name")
-              #  username = input("enter username")
-               # new_password = getpass("enter new password: ")
-                #change_password(site, username, new_password)
+            elif option == 5:
+                site = input("enter site name")
+                username = input("enter username")
+                change_password(site, username, new_password)
             elif option == 6:
                break
             else:
