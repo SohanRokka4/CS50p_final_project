@@ -134,7 +134,7 @@ def main():
             elif option == 5:
                 site = input("enter site name")
                 username = input("enter username")
-                change_password(site, username, new_password)
+                change_password(site, username)
             elif option == 6:
                break
             else:
