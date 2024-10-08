@@ -1,6 +1,6 @@
 from project import  add_new_password, retrive_password, delete_password, change_password
 import unittest
-from unittest.mock import patch, mock_open
+from unittest.mock import patch, mock_open, mock_file
 
 
 
@@ -31,7 +31,7 @@ def test_retrive_password():
     
     
 def test_delete_password():
-    ....
+    ...
 
 
 def test_change_password():
@@ -39,7 +39,7 @@ def test_change_password():
 
 
 def main():
-    test_add_password()
+    test_add_new_password()
     test_change_password()
     test_delete_password()
     test_retrive_password()
