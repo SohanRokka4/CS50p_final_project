@@ -28,7 +28,7 @@ def add_new_password():
     opt=input("enter 1 to enter own password and 2 to generate a random password for you: ")
     if opt == "1":
         while True:
-            password = input("enter your password")
+            password = input("enter your password: ")
             if len(password) >= 10:
                 break
             else:
@@ -52,7 +52,7 @@ def add_new_password():
     print("password added successfully")
             
         
-def retrive_password(site, username):
+def retrive_password(site):
     fernet = get_fernet()
     if os.path.exists("passwords.json"):
         with open("passwords.json","r") as file:
@@ -75,7 +75,7 @@ def generate_random_password():
     return "".join(random.choice(characters) for _ in range(12))
 
 
-def delete_password(site, username):
+def delete_password(site):
     if os.path.exists("passwords.json"):
         with open("passwords.json","r") as file:
             passwords = json.load(file)
@@ -86,12 +86,12 @@ def delete_password(site, username):
         with open("passwords.json","w") as file:
             json.dump(passwords, file)
     else:
-        print("no passwords stored")
+        print("\n\n\nno passwords stored")
     
 
 def change_password(site,username):
     while True:
-        new_password = getpass("enter your new password")
+        new_password = getpass("enter your new password: ")
         if len(new_password) >= 10:
             break
         else:
@@ -107,7 +107,7 @@ def change_password(site,username):
     passwords[site] = {"username":username, "password": encrypted_pass.decode()}
     with open("passwords.json","w") as file:
         json.dump(passwords, file)
-    print("password added successfully")
+    print("\n\n\npassword changed successfully")
     
 
 def main():
@@ -124,24 +124,23 @@ def main():
                 add_new_password()
             elif option == 2:
                 site = input("enter name of the site: ")
-                retrive_password(site, username)
+                retrive_password(site)
             elif option == 3:
                 generate_random_password()
             elif option == 4:
-                site = input("enter site name")
-                username = input("enter username")
-                delete_password(site, username)
+                site = input("enter site name: ")
+                delete_password(site)
             elif option == 5:
-                site = input("enter site name")
-                username = input("enter username")
+                site = input("enter site name: ")
+                username = input("enter username: ")
                 change_password(site, username)
             elif option == 6:
                break
             else:
                 print("invalid option")
         except ValueError:
-            print("enter a fucking number next time u dimwit")
-            return
+            print("enter a fucking number u fucking dimwit")
+    return
 
 if __name__ == "__main__" :
     main()
