@@ -28,7 +28,7 @@ def add_new_password():
     opt=input("enter 1 to enter own password and 2 to generate a random password for you: ")
     if opt == "1":
         while True:
-            password = input("enter your password: ")
+            password = getpass("enter your password: ")
             if len(password) >= 10:
                 break
             else:
