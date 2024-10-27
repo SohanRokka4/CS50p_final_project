@@ -112,7 +112,7 @@ def change_password(site,username):
 
 def main():
     print("Welcome to the password manager")
-    master_pass = input("enter your master password: ")
+    master_pass = getpass("enter your master password: ")
     
     if master_pass != "XZ1234xz":
         print(f"invalid master password")
@@ -126,7 +126,7 @@ def main():
                 site = input("enter name of the site: ")
                 retrive_password(site)
             elif option == 3:
-                generate_random_password()
+                print(f"{generate_random_password()}")
             elif option == 4:
                 site = input("enter site name: ")
                 delete_password(site)
