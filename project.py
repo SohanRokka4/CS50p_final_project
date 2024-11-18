@@ -100,14 +100,15 @@ def change_password(site,username):
     fernet = get_fernet()
     encrypted_pass = fernet.encrypt(new_password.encode())
     
-    
     with open("passwords.json","r") as file:
         passwords = json.load(file)
-        
-    passwords[site] = {"username":username, "password": encrypted_pass.decode()}
-    with open("passwords.json","w") as file:
-        json.dump(passwords, file)
-    print("\n\n\npassword changed successfully")
+    
+    if site in passwords:
+        passwords[site] = {"username":username, "password": encrypted_pass.decode()}
+        with open("passwords.json","w") as file:
+            json.dump(passwords, file)
+        print("\n\n\npassword changed successfully")
+    else: print("there aint no site named {site} in that fucking folder u dimwit ")
     
 
 def main():
@@ -126,7 +127,7 @@ def main():
                 site = input("enter name of the site: ")
                 retrive_password(site)
             elif option == 3:
-                print(f"{generate_random_password()}")
+                print(f"\n random password= {generate_random_password()}")
             elif option == 4:
                 site = input("enter site name: ")
                 delete_password(site)
