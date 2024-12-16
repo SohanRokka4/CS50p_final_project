@@ -51,8 +51,6 @@ Copy code
 ├── project.py
 ├── README.md
 ├── requirements.txt
-├── secret.key
-├── passwords.json
 ├── tests/
 │   └── test_project.py
 Testing
