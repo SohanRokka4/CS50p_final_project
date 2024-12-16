@@ -1,5 +1,5 @@
 # Password Manager
-    #### Video Demo:  <URL HERE>
+    #### Video Demo:  https://youtu.be/pHBur-bfZBI
     
 Overview
 This is a simple command-line-based Password Manager program written in Python. It allows users to securely store, retrieve, update, and delete passwords for various sites. The passwords are encrypted using the Fernet encryption from the cryptography library, ensuring high security for stored credentials.
@@ -15,7 +15,7 @@ Installation
 Clone the Repository:
 bash
 Copy code
-git clone <repository_url>
+git clone [<repository_url>](https://github.com/SohanRokka4/CS50p_final_project.git)
 cd password-manager
 Install Dependencies: Make sure you have Python installed, then run:
 Copy code
