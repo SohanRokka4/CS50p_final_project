@@ -1,9 +1,10 @@
-from project import get_fernet, retrive_password, add_new_password, delete_password, change_password, generate_random_password, add_new_password, retrive_password, change_password
+from project import get_fernet, delete_password, generate_random_password
 import pytest
 from unittest.mock import patch, mock_open
 from cryptography.fernet import Fernet
 import json
 import os
+import string
 
 # Test the Fernet key generation
 @patch('builtins.open', new_callable=mock_open)
@@ -36,4 +37,18 @@ def test_delete_password(mock_exists, mock_file, mock_input):
     
     delete_password("testsite")
     mock_file().write.assert_called_once_with(json.dumps(expected_passwords))
+    
+def test_generate_random_password():
+        # Test length
+    password = generate_random_password()
+    assert len(password) == 12, "Password length should be 12 characters."
+
+        # Test character set
+    valid_characters = set(string.ascii_letters + string.digits + string.punctuation)
+    assert set(password).issubset(valid_characters), "Password contains invalid characters."
+
+        # Test randomness
+    passwords = {generate_random_password() for _ in range(100)}
+    assert len(passwords) > 90, "Generated passwords are not random enough."
+
 
